@@ -8,6 +8,7 @@ let spaceship, planets, stars, meteors, explosions, score, frames, lives;
 let gameOver = false;
 let qualified = false;
 let gameStarted = false;
+let speedMultiplier = 1; // Speed multiplier to increase game speed over time
 
 const gravity = 0.12; // Reduced gravity for mobile
 const lift = -3; // Reduced lift for mobile
@@ -20,9 +21,9 @@ let spaceshipImage = new Image();
 const planetFiles = [
     "1 2.png", "1 3.png", "1 4.png", "1 5.png", "1 6.png", "1 7.png", "1 8.png", "1 9.png", "1.png",
     "10.png", "12.png", "13 2.png", "13.png", "14.png", "15.png", "16 2.png", "16.png", "17.png",
-    "2 2.png", "2 3.png", "2 4.png", "2 5.png", "2 6.png", "2 7.png", "2 8.png", "2.png", "23.png",
-    "28.png", "3 2.png", "3 3.png", "3.png", "4 2.png", "4 3.png", "4 4.png", "4 5.png", "4.png",
-    "5 2.png", "5 3.png", "5 4.png", "5 5.png", "5 6.png", "5 7.png", "5 8.png", "5.png", "6 2.png",
+    "2 3.png", "2 4.png", "2 5.png", "2 6.png", "2 7.png", "2 8.png", "2.png", "23.png",
+    "28.png", "3 3.png", "3.png", "4 2.png", "4 3.png", "4 4.png", "4 5.png", "4.png",
+    "5 2.png", "5 3.png", "5 5.png", "5 6.png", "5 7.png", "5 8.png", "5.png",
     "6 3.png", "6 4.png", "6 5.png", "6.png", "7 2.png", "7 3.png", "7.png", "8 2.png", "8 3.png",
     "8 4.png", "8 5.png", "8 6.png", "8 7.png", "8 8.png", "8 9.png", "8.png", "9 2.png", "9 3.png",
     "9 4.png", "9 5.png", "9.png", "Quasar1.png", "Quasar2.png", "Quasar3.png", "Quasar4.png",
@@ -153,13 +154,13 @@ function createPlanet() {
 
 function createStars() {
     stars = [];
-    const numStars = 2000; // Increased the number of stars
+    const numStars = 1500; // Increased the number of stars
     const colors = ['#FFFFFF', '#fff0f0', '#fffbf0', '#f0fff0', '#f0f5ff'];
     for (let i = 0; i < numStars; i++) {
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
         const radius = Math.random() * 2;
-        const luminosity = Math.sqrt(Math.random() * 2) + 0.5;
+        const luminosity = Math.sqrt(Math.random() * 1.5) + 0.2;
         const color = colors[Math.floor(Math.random() * colors.length)];
         stars.push({ x, y, radius, luminosity, blinkSpeed: Math.random() * 0.02, color });
     }
@@ -223,7 +224,7 @@ function hexToRgb(hex) {
 
 function updateStars() {
     for (const star of stars) {
-        star.x -= 0.5;
+        star.x -= 0.5 * speedMultiplier; // Apply speed multiplier
         if (star.x < 0) {
             star.x = canvas.width;
             star.y = Math.random() * canvas.height;
@@ -234,8 +235,8 @@ function updateStars() {
 function updateMeteors() {
     for (let i = meteors.length - 1; i >= 0; i--) {
         const meteor = meteors[i];
-        meteor.x -= meteor.speed * Math.cos(meteor.angle);
-        meteor.y -= meteor.speed * Math.sin(meteor.angle);
+        meteor.x -= meteor.speed * Math.cos(meteor.angle) * speedMultiplier; // Apply speed multiplier
+        meteor.y -= meteor.speed * Math.sin(meteor.angle) * speedMultiplier; // Apply speed multiplier
 
         if (meteor.x < -meteor.width || meteor.y < -meteor.height || meteor.y > canvas.height) {
             meteor.x = canvas.width + meteor.width;
@@ -322,7 +323,7 @@ function update() {
     // Move and draw planets
     const remainingPlanets = [];
     for (let i = 0; i < planets.length; i++) {
-        planets[i].x -= 3; // Adjusted speed for mobile
+        planets[i].x -= 3 * speedMultiplier; // Apply speed multiplier
         planets[i].rotation += planets[i].rotationSpeed;
         planets[i].y = planets[i].baseY + Math.sin(frames * planets[i].wobbleSpeed) * planets[i].wobbleMagnitude;
 
@@ -392,6 +393,7 @@ function animate() {
         }
         update();
         frames++;
+        speedMultiplier = 1 + frames / 6000; // Increase speed multiplier over time
         requestAnimationFrame(animate);
     }
 }
@@ -406,8 +408,8 @@ function init() {
     spaceship = {
         x: 200, // Starting x position
         y: canvas.height / 2,
-        width: 81, // Increased size of the spaceship
-        height: 55, // Increased size of the spaceship
+        width: 65, // Increased size of the spaceship
+        height: 45, // Increased size of the spaceship
         dy: 0,
         angle: 0
     };

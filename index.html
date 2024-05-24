@@ -85,6 +85,22 @@
             overflow: hidden;
             position: absolute;
         }
+        #rotateDevicePrompt {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-family: 'Press Start 2P', cursive;
+            z-index: 10;
+        }
+
     }
     </style>
 </head>
@@ -93,8 +109,10 @@
     <div id="score">Score: 0</div>
     <button id="start">Start</button>
     <button id="restart">Restart</button>
-    <button id="next-level">Next Level</button>
-    <div id="qualified">Qualified to Next Stage!</div>
+    <button id="next-level">Wishes</button>
+    <div id="qualified">You win!</div>
+    <div id="rotateDevicePrompt">Please rotate your device.</div>
+
     <div id="instructions">Click or Tap to control the spaceship<br>Reach 10 points to earn your birthday wishes</div>
     <audio id="backgroundMusic" loop>
         <source src="./others/track1_int.mp3" type="audio/mpeg">
