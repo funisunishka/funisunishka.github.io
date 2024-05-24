@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>Flappy Spaceship Game</title>
+    <style>
+        body { 
+            margin: 0; 
+            overflow: hidden; 
+            background: black; 
+            font-family: 'Press Start 2P', cursive;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        canvas { 
+            display: block; 
+        }
+        #score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 20px;
+            background-color: rgba(255, 0, 0, 0.8);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: 'Press Start 2P', cursive;
+        }
+        #start, #restart, #next-level {
+            display: none;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            font-size: 20px;
+            color: white;
+            background-color: rgba(255, 0, 0, 0.8);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+        }
+        #next-level {
+            top: 10px;
+            left: auto;
+            right: 10px;
+            transform: none;
+        }
+        #qualified {
+            display: none;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-family: 'Press Start 2P', cursive;
+        }
+        #instructions {
+            /* display: none; */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 16px;
+            background: rgba(255, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-family: 'Press Start 2P', cursive;
+        }
+        @media screen and (orientation: portrait) {
+        body {
+            transform: rotate(90deg);
+            transform-origin: left top;
+            width: 100vh;
+            height: 100vw;
+            overflow: hidden;
+            position: absolute;
+        }
+    }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <div id="score">Score: 0</div>
+    <button id="start">Start</button>
+    <button id="restart">Restart</button>
+    <button id="next-level">Next Level</button>
+    <div id="qualified">Qualified to Next Stage!</div>
+    <div id="instructions">Click or Tap to control the spaceship<br>Reach 10 points to earn your birthday wishes</div>
+    <audio id="backgroundMusic" loop>
+        <source src="./others/track1_int.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script src="game.js"></script>
+</body>
+</html>
